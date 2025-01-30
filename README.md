@@ -28,36 +28,52 @@ This project outlines the implementation of on-premises Active Directory within 
 <h2>Deployment and Configuration Steps</h2>
 
 <p>
-<img src="https://i.imgur.com/1GvDSSf.jpeg" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+
 </p>
 <p>
 Setting Up the Domain Controller in Azure:
 1. Create a Resource Group:
 
+  ![Image 1-29-25 at 2 57 PM](https://github.com/user-attachments/assets/9b0a4927-2af6-454e-945e-cfa61a527f2d)
+
 First, I created a Resource Group in Azure to keep all the related resources organized. I gave it a clear name to reflect its purpose (e.g., "DomainControllerLab") and selected a region close to where I’ll be working.
 
 2. Create a Virtual Network and Subnet:
+
+![Image 1-29-25 at 3 02 PM](https://github.com/user-attachments/assets/86934690-2ac7-4d57-aa33-19323fff6868)
 
 Next, I set up a Virtual Network (VNet) along with a Subnet. This network will provide the foundation for all communication between resources in this setup. I configured the VNet with an address range that would allow for future scalability and created a Subnet within it to segment network traffic.
 
 3. Create the Domain Controller VM:
 
+![Image 1-29-25 at 3 41 PM](https://github.com/user-attachments/assets/5b3a915b-25b2-4789-8c94-9ddd69c65d3a)
+
+
 After setting up the network, I created a Windows Server 2022 Virtual Machine (VM) and named it “DC-1”.
 
 During the setup:
+
+![Image 1-29-25 at 3 51 PM](https://github.com/user-attachments/assets/7fdce00f-c202-462c-ab24-e808a9d2398f)
 
 I selected the previously created Resource Group and assigned it to the Virtual Network and Subnet I just created.
 I used the following credentials for the VM:
 Username: labuser
 Password: Cyberlab123!
 I configured the VM size based on my needs, selected an appropriate storage type, and completed the setup.
+
 4. Set the Domain Controller's NIC Private IP Address to Static:
+
+![Image 1-29-25 at 3 56 PM](https://github.com/user-attachments/assets/bbec5643-6eca-4c2f-8417-dfa8d052767d)
 
 Once the VM was up and running, I navigated to the Networking section of the DC-1 VM in the Azure portal. I found the NIC (Network Interface Card) associated with the VM and updated the Private IP address setting from Dynamic to Static. This ensures the Domain Controller will always have the same IP address, which is crucial for its role in the network.
 
 5. Log Into the VM and Disable the Windows Firewall:
 
+![Image 1-29-25 at 3 59 PM](https://github.com/user-attachments/assets/3ad877e8-5e58-4b81-8635-7092754e59ce)
+
 Finally, I logged into the DC-1 VM using Remote Desktop (RDP) with the credentials I set up earlier. Once inside the Windows Server:
+
+![Image 1-29-25 at 4 02 PM](https://github.com/user-attachments/assets/581e78d4-c999-448d-8c37-b83a48c1bc52)
 
 I opened the Windows Firewall settings via the Control Panel or the search bar.
 I disabled the Windows Firewall for all profiles (Domain, Private, and Public) to make testing connectivity easier.
@@ -68,7 +84,7 @@ Note: Disabling the firewall is only recommended for testing or lab scenarios. I
 <br />
 
 <p>
-<img src="https://i.imgur.com/FhskdQt.jpeg" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+
 </p>
 <p>
 1. Create the Client VM:
@@ -80,18 +96,25 @@ I used the following credentials for the VM:
 Username: labuser
 Password: Cyberlab123!
 I finalized the VM configuration and waited for it to be created successfully.
+
 2. Set the Client VM’s DNS Settings to Point to DC-1:
+
+![Image 1-29-25 at 4 08 PM](https://github.com/user-attachments/assets/8841767a-5ac1-4545-a371-6c0d346f33a8)
 
 Once Client-1 was created, I navigated to the Networking section for the Client-1 VM in the Azure portal. I found the NIC (Network Interface Card) associated with Client-1 and updated the DNS settings:
 
 I set the DNS server address to the Private IP address of DC-1. This ensures that the client will use the Domain Controller for DNS queries.
 3. Restart Client-1:
 
+![Image 1-29-25 at 4 12 PM](https://github.com/user-attachments/assets/5bd6d542-6bca-4c08-bbea-b62d622aea81)
+
 After updating the DNS settings, I restarted the Client-1 VM from the Azure Portal to ensure the changes took effect.
 
 4. Log Into Client-1 and Test Connectivity:
 
 After the restart, I logged into Client-1 using Remote Desktop (RDP) with the credentials I set earlier. Once inside the VM, I performed the following steps:
+
+![Image 1-29-25 at 4 18 PM](https://github.com/user-attachments/assets/73efe90d-13e0-4622-8ddc-90eb158f20f6)
 
 Ping DC-1’s Private IP Address:
 I opened a command prompt and ran the ping command to check connectivity:
@@ -100,6 +123,9 @@ The ping was successful, indicating that Client-1 could communicate with DC-1 ov
 Check DNS Settings in PowerShell:
 I opened PowerShell and ran the following command to verify the DNS settings:
 ipconfig /all
+
+![Image 1-29-25 at 4 20 PM](https://github.com/user-attachments/assets/cb67f722-e1ab-4cfa-9b81-c975e4065405)
+
 In the output, I confirmed that the DNS Server field showed DC-1’s Private IP Address. This confirmed that the DNS settings were correctly configured.
 </p>
 <br />

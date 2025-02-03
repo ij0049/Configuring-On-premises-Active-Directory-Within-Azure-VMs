@@ -140,6 +140,7 @@ After logging into DC-1 as labuser, I opened the Server Manager. From there:
 
 I navigated to Add roles and features and selected Active Directory Domain Services (AD DS) to install it.
 Once the installation completed, I began the promotion process to make this server a Domain Controller (DC).
+
 2. Promoting DC-1 as a Domain Controller:
 
 During the promotion process:

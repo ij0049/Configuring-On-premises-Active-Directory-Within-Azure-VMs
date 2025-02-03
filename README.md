@@ -263,7 +263,7 @@ In the dialog that appeared, I selected the _CLIENTS OU and clicked OK.
 This action moved Client-1 into the _CLIENTS OU, helping me maintain a clean and organized structure for the domain.
 </p>
 <br/>
-<img src="https://i.imgur.com/Bz03xt8.jpeg" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+
 <p>
   Setting Up Remote Desktop for Non-Administrative Users on Client-1:
 1. Logging into Client-1 as the Domain Admin:

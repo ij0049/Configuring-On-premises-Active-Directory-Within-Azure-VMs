@@ -131,25 +131,34 @@ In the output, I confirmed that the DNS Server field showed DC-1’s Private IP 
 <br />
 
 <p>
-<img src="https://i.imgur.com/U2h07mX.jpeg" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+
 </p>
 <p>
 1. Logging into DC-1 and Installing Active Directory Domain Services:
 
 After logging into DC-1 as labuser, I opened the Server Manager. From there:
 
+![Image 2-2-25 at 4 49 PM](https://github.com/user-attachments/assets/abb3df18-cd1a-4c4a-9d72-afc7606321a5)
+
 I navigated to Add roles and features and selected Active Directory Domain Services (AD DS) to install it.
 Once the installation completed, I began the promotion process to make this server a Domain Controller (DC).
+
+![Image 2-2-25 at 4 47 PM](https://github.com/user-attachments/assets/db5ce9fe-c0f6-4229-8aad-7cc1d1340691)
 
 2. Promoting DC-1 as a Domain Controller:
 
 During the promotion process:
 
+![Image 2-2-25 at 4 54 PM](https://github.com/user-attachments/assets/75c44452-d446-49a2-864c-7aaef4b27bce)
+
 I selected the option to add a new forest and named the forest mydomain.com. I made a note of this domain name for future logins.
 I configured the forest functional level and domain functional level, selecting the default options compatible with Windows Server 2022.
 I set up the Directory Services Restore Mode (DSRM) password, which is used for recovering the Active Directory database if needed.
 Once the configuration was complete, the server automatically restarted.
+
 3. Logging Back into DC-1 as a Domain User:
+
+![Image 2-2-25 at 4 59 PM](https://github.com/user-attachments/assets/659ba50f-76f5-4fb0-84b8-d1dff238e7f0)
 
 After the restart, I logged back into DC-1 using the domain credentials:
 mydomain.com\labuser.
@@ -157,21 +166,32 @@ mydomain.com\labuser.
 This confirmed that the domain setup was successful, and I was now operating within the mydomain.com domain.
 
 Creating a Domain Admin User:
+
 4. Using Active Directory Users and Computers (ADUC):
 
 In ADUC, I began organizing the domain structure:
 
+![Image 2-2-25 at 5 08 PM](https://github.com/user-attachments/assets/ccf8d2a5-9a7a-4476-9e5c-8af56a5607b6)
+
 I created an Organizational Unit (OU) named _EMPLOYEES to store regular employee accounts.
 I created another OU named _ADMINS for administrative accounts.
+
+![Image 2-2-25 at 5 10 PM](https://github.com/user-attachments/assets/8839a758-6a91-4c89-b856-506f1315f78b)
+
 5. Adding Jane Doe as a Domain Admin:
 
 Within the _ADMINS OU:
+
+![Image 2-2-25 at 5 13 PM](https://github.com/user-attachments/assets/3728fce4-2065-46fc-b7d3-447eecd61e8f)
 
 I created a new user named Jane Doe with the username:
 jane_admin
 Password: Cyberlab123!
 After creating the account, I added jane_admin to the Domain Admins Security Group. This granted Jane Doe administrative privileges over the domain.
+
 6. Logging Out and Switching to Jane Admin:
+
+![Image 2-2-25 at 5 18 PM](https://github.com/user-attachments/assets/5652f8cf-6ebb-49c0-8d12-a2b30fc8de89)
 
 Once Jane Doe’s account was set up as a Domain Admin, I logged out of mydomain.com\labuser and closed my connection to DC-1. Then, I logged back into DC-1 using:
 mydomain.com\jane_admin.
@@ -191,6 +211,8 @@ Password: Cyberlab123!
 
 Once logged in:
 
+![Image 2-2-25 at 5 21 PM](https://github.com/user-attachments/assets/50eb2f36-c5d7-46e7-b3d0-5a1c068fef4b)
+
 I opened the System Properties window by right-clicking This PC and selecting Properties.
 I clicked Change settings under the Computer name, domain, and workgroup settings section.
 In the System Properties dialog, I clicked the Change button and selected Domain under the "Member of" section.
@@ -198,10 +220,16 @@ I entered the domain name mydomain.com and clicked OK.
 I was prompted to provide credentials for a user with permission to join devices to the domain. I used the domain admin account:
 Username: mydomain.com\jane_admin
 Password: Cyberlab123!
+
+![Image 2-2-25 at 5 23 PM](https://github.com/user-attachments/assets/371d3757-0025-4387-9f35-dadc89ce123f)
+
 After the process completed, I saw a welcome message confirming that Client-1 was successfully added to the domain.
 The computer then prompted me to restart. I allowed the restart to complete.
 
+![Image 2-2-25 at 5 25 PM](https://github.com/user-attachments/assets/a7185225-d1fa-49d2-950e-32b8a363d7b8)
+
 Verifying Client-1 in Active Directory:
+
 3. Logging into the Domain Controller:
 
 Next, I logged back into DC-1 as mydomain.com\jane_admin.
@@ -210,15 +238,21 @@ Next, I logged back into DC-1 as mydomain.com\jane_admin.
 
 Using Active Directory Users and Computers (ADUC):
 
+![Image 2-2-25 at 5 28 PM](https://github.com/user-attachments/assets/a4b50236-d007-4cfb-a767-b89cb9d36a5f)
+
 I navigated to the default Computers container.
 I verified that Client-1 appeared in the list of domain-joined computers. This confirmed that the machine had successfully joined the domain.
 Organizing Client-1 in ADUC:
+
 5. Creating the _CLIENTS OU:
 
 To better organize domain resources, I created a new Organizational Unit (OU):
 
+![Image 2-2-25 at 5 30 PM](https://github.com/user-attachments/assets/43054faa-fed9-4019-8a53-a2e24ead07e7)
+
 In ADUC, I right-clicked the domain name (mydomain.com) and selected New > Organizational Unit.
 I named the OU _CLIENTS to store client machine accounts.
+
 6. Moving Client-1 into the _CLIENTS OU:
 
 After creating the OU:
@@ -234,6 +268,8 @@ This action moved Client-1 into the _CLIENTS OU, helping me maintain a clean and
   Setting Up Remote Desktop for Non-Administrative Users on Client-1:
 1. Logging into Client-1 as the Domain Admin:
 
+![Image 2-2-25 at 5 32 PM](https://github.com/user-attachments/assets/dc8625be-0f3d-4e99-a72c-813b7bb3b390)
+
 I logged into Client-1 using the domain admin account:
 Username: mydomain.com\jane_admin
 Password: Cyberlab123!
@@ -241,6 +277,8 @@ Password: Cyberlab123!
 2. Enabling Remote Desktop for Domain Users:
 
 Once logged in:
+
+![Image 2-2-25 at 5 36 PM](https://github.com/user-attachments/assets/9aeff93d-d10a-4392-bfb4-d0d9eb383568)
 
 I opened System Properties by right-clicking This PC and selecting Properties.
 I clicked Remote Desktop on the left-hand menu.
@@ -250,14 +288,22 @@ I applied the changes and closed the settings.
 This setup will enable remote desktop access for non-administrative users, but normally this should be done using Group Policy for managing multiple systems at once.
 
 Creating Additional Users in Bulk:
+
 3. Logging into DC-1 and Preparing the Script:
 
 I logged into DC-1 as mydomain.com\jane_admin and opened PowerShell ISE with administrative privileges.
 
+![Image 2-2-25 at 5 40 PM](https://github.com/user-attachments/assets/d9f64c68-d1e2-4341-a9a5-11ef8a37233d)
+
 I created a new file in PowerShell ISE and pasted the contents of a script to create multiple user accounts. The script used commands like New-ADUser to add users to the domain and place them in the _EMPLOYEES Organizational Unit (OU).
+
+![Image 2-2-25 at 5 43 PM (1)](https://github.com/user-attachments/assets/4a6a19a8-29a7-4108-8a2f-a40e8d5ad35a)
+
 4. Running the Script:
 
 After reviewing the script to ensure it was correct, I ran it. As the script executed, I saw messages indicating the successful creation of each user account.
+
+![Image 2-2-25 at 5 47 PM](https://github.com/user-attachments/assets/b2d7e82e-aa71-4908-9675-bd05460cc744)
 
 5. Verifying the Accounts in ADUC:
 
@@ -265,8 +311,14 @@ Once the script finished:
 
 I opened Active Directory Users and Computers (ADUC).
 I navigated to the _EMPLOYEES OU and verified that all the new accounts were created and displayed there.
+
+![Image 2-2-25 at 5 49 PM](https://github.com/user-attachments/assets/250f0be6-238c-4d02-b43a-2db7f02120e5)
+
 Testing Access with a New User:
+
 6. Logging into Client-1 with a New User:
+
+![Image 2-2-25 at 5 51 PM](https://github.com/user-attachments/assets/e5303d0c-753f-494a-a0b1-9db59c9fd3b0)
 
 I noted the default password set in the script and attempted to log into Client-1 with one of the new user accounts, for example:
 Username: mydomain.com\newuser1

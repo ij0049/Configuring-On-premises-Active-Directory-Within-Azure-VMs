@@ -177,7 +177,7 @@ mydomain.com\jane_admin.
 </p>
 <br />
 <p> 
-  <img src="https://i.imgur.com/FdMBOgG.jpeg" height="80%" width="80%" alt="Disk Sanitization Steps"/> 
+  
   
   Joining Client-1 to the Domain:
 1. Logging into Client-1 as the Local Admin:
